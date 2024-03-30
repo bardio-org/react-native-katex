@@ -40,7 +40,26 @@ ${inlineStyle}
 </style>
 <script>
 window.onerror = e => document.write(e);
-window.onload = () => katex.render(${JSON.stringify(expression)}, document.body, ${JSON.stringify(options)});
+
+// To help in testing rendering on an element other than body
+const targetElement = () => {
+    return document.body;
+};
+
+// Send a messge with onMessge to the React Native WebView with the rendered element's dimensions
+const postRenderMessage = () => {
+    const { offsetWidth: bodyWidth, offsetHeight: bodyHeight } = document.body;
+    const { offsetWidth: width, offsetHeight: height } = targetElement().firstChild;
+    window.ReactNativeWebView.postMessage(JSON.stringify({'katexRendered':{bodyWidth:bodyWidth,bodyHeight:bodyHeight,width:width,height:height}}));
+};
+
+// Send the message after element rendering is iniated (although it may not be fully completed
+// So we may need to wait for a bit before sending the message after rendering is triggered)
+window.onload = () => {
+    katex.render(${JSON.stringify(expression)}, targetElement(), ${JSON.stringify(options)});
+    postRenderMessage();
+    //setTimeout(postRenderMessage, 5000);
+};
 ${katexScript}
 </script>
 </head>
