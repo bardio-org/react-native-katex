@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { WebViewSharedProps } from 'react-native-webview/lib/WebViewTypes';
+import { WebViewSharedProps } from 'react-native-webview/src/WebViewTypes';
 
 import katexStyle from './katex-style';
 import katexScript from './katex-script';
@@ -26,12 +26,14 @@ export interface KatexOptions {
 export interface ContentOptions extends KatexOptions {
   inlineStyle?: string;
   expression?: string;
+  viewport?: string;
 }
 
-function getContent({ inlineStyle, expression, ...options }: ContentOptions) {
+function getContent({ inlineStyle, expression, viewport, ...options }: ContentOptions) {
   return `<!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="${JSON.stringify(viewport)}"/>
 <style>
 ${katexStyle}
 ${inlineStyle}
@@ -72,6 +74,9 @@ html, body {
 export interface KatexProps extends ContentOptions, Omit<WebViewSharedProps, 'source'> {}
 
 export default function Katex({
+  inlineStyle,
+  expression,
+  viewport,
   displayMode,
   output,
   leqno,
@@ -93,6 +98,9 @@ export default function Katex({
       {...webViewProps}
       source={{
         html: getContent({
+          inlineStyle,
+          expression,
+          viewport,
           displayMode,
           output,
           leqno,
@@ -115,6 +123,7 @@ export default function Katex({
 
 Katex.defaultProps = {
   expression: '',
+  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
   displayMode: false,
   throwOnError: false,
   errorColor: '#f00',
