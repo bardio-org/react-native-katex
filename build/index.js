@@ -8,7 +8,7 @@ const react_native_1 = require("react-native");
 const react_native_webview_1 = require("react-native-webview");
 const katex_style_1 = __importDefault(require("./katex-style"));
 const katex_script_1 = __importDefault(require("./katex-script"));
-function getContent({ inlineStyle, expression, viewport, ...options }) {
+function getContent({ inlineStyle, expression, viewport, renderMessageDelay, ...options }) {
     return `<!DOCTYPE html>
 <html>
 <head>
@@ -27,9 +27,10 @@ const targetElement = () => {
 
 // Send a messge with onMessge to the React Native WebView with the rendered element's dimensions
 const postRenderMessage = () => {
-    const { offsetWidth: bodyWidth, offsetHeight: bodyHeight } = document.body;
-    const { offsetWidth: width, offsetHeight: height } = targetElement().firstChild;
-    window.ReactNativeWebView.postMessage(JSON.stringify({'katexRendered':{bodyWidth:bodyWidth,bodyHeight:bodyHeight,width:width,height:height}}));
+    const windowBounds = document.documentElement.getBoundingClientRect();
+    const bodyBounds = document.body.getBoundingClientRect();
+    const bounds = targetElement().firstChild.getBoundingClientRect();
+    window.ReactNativeWebView.postMessage(JSON.stringify({'katexRendered':{windowBounds:windowBounds,bodyBounds:bodyBounds,bounds:bounds}}));
 };
 
 // Send the message after element rendering is iniated (although it may not be fully completed
@@ -37,7 +38,7 @@ const postRenderMessage = () => {
 window.onload = () => {
     katex.render(${JSON.stringify(expression)}, targetElement(), ${JSON.stringify(options)});
     postRenderMessage();
-    //setTimeout(postRenderMessage, 5000);
+    setTimeout(postRenderMessage, ${JSON.stringify(renderMessageDelay)});
 };
 ${katex_script_1.default}
 </script>
@@ -66,12 +67,13 @@ html, body {
   display: flex;
 }
 `;
-function Katex({ inlineStyle, expression, viewport, displayMode, output, leqno, fleqn, throwOnError, errorColor, macros, minRuleThickness, colorIsTextColor, maxSize, maxExpand, strict, trust, globalGroup, ...webViewProps }) {
+function Katex({ inlineStyle, expression, viewport, renderMessageDelay, displayMode, output, leqno, fleqn, throwOnError, errorColor, macros, minRuleThickness, colorIsTextColor, maxSize, maxExpand, strict, trust, globalGroup, ...webViewProps }) {
     return (react_1.default.createElement(react_native_webview_1.WebView, { ...webViewProps, source: {
             html: getContent({
                 inlineStyle,
                 expression,
                 viewport,
+                renderMessageDelay,
                 displayMode,
                 output,
                 leqno,
@@ -93,6 +95,7 @@ exports.default = Katex;
 Katex.defaultProps = {
     expression: '',
     viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
+    renderMessageDelay: 50,
     displayMode: false,
     throwOnError: false,
     errorColor: '#f00',
