@@ -1,5 +1,5 @@
 import React from 'react';
-import { WebViewSharedProps } from 'react-native-webview/src/WebViewTypes';
+import { WebViewSharedProps, IOSWebViewProps, AndroidWebViewProps } from 'react-native-webview/src/WebViewTypes';
 export interface KatexOptions {
     displayMode?: boolean;
     output?: 'html' | 'mathml' | 'htmlAndMathml';
@@ -22,7 +22,7 @@ export interface ContentOptions extends KatexOptions {
     viewport?: string;
     renderMessageDelay?: number;
 }
-export interface KatexProps extends ContentOptions, Omit<WebViewSharedProps, 'source'> {
+export interface KatexProps extends ContentOptions, Omit<WebViewSharedProps | IOSWebViewProps | AndroidWebViewProps, 'source'> {
 }
 declare function Katex({ inlineStyle, expression, viewport, renderMessageDelay, displayMode, output, leqno, fleqn, throwOnError, errorColor, macros, minRuleThickness, colorIsTextColor, maxSize, maxExpand, strict, trust, globalGroup, ...webViewProps }: KatexProps): React.JSX.Element;
 declare namespace Katex {

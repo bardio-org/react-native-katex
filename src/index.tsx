@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { WebViewSharedProps } from 'react-native-webview/src/WebViewTypes';
+import { WebViewSharedProps, IOSWebViewProps, AndroidWebViewProps } from 'react-native-webview/src/WebViewTypes';
 
 import katexStyle from './katex-style';
 import katexScript from './katex-script';
@@ -92,7 +92,7 @@ html, body {
 }
 `;
 
-export interface KatexProps extends ContentOptions, Omit<WebViewSharedProps, 'source'> {}
+export interface KatexProps extends ContentOptions, Omit<WebViewSharedProps | IOSWebViewProps | AndroidWebViewProps, 'source'> {}
 
 export default function Katex({
   inlineStyle,
