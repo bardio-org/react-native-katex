@@ -92,7 +92,7 @@ html, body {
 }
 `;
 
-export interface KatexProps extends ContentOptions, Omit<WebViewSharedProps | IOSWebViewProps | AndroidWebViewProps, 'source'> {}
+export interface KatexProps extends ContentOptions, Omit<WebViewSharedProps & IOSWebViewProps & AndroidWebViewProps, 'source'> {}
 
 export default function Katex({
   inlineStyle,
