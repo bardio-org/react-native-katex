@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
-const react_native_1 = require("react-native");
 const react_native_webview_1 = require("react-native-webview");
 const katex_style_1 = __importDefault(require("./katex-style"));
 const katex_script_1 = __importDefault(require("./katex-script"));
@@ -48,11 +47,6 @@ ${katex_script_1.default}
 </html>
 `;
 }
-const defaultStyle = react_native_1.StyleSheet.create({
-    root: {
-        height: 40,
-    },
-});
 const defaultInlineStyle = `
 html, body {
   display: flex;

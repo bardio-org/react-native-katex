@@ -71,12 +71,6 @@ ${katexScript}
 `;
 }
 
-const defaultStyle = StyleSheet.create({
-  root: {
-    height: 40,
-  },
-});
-
 const defaultInlineStyle = `
 html, body {
   display: flex;
@@ -96,7 +90,6 @@ export interface KatexProps extends ContentOptions, Omit<WebViewSharedProps & IO
 
 export default function Katex({
   inlineStyle = defaultInlineStyle,
-  //style = defaultStyle,
   expression = '',
   viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
   renderMessageDelay = 50,
@@ -144,16 +137,3 @@ export default function Katex({
     />
   );
 }
-
-// Katex.defaultProps = {
-//   expression: '',
-//   viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
-//   renderMessageDelay: 50,
-//   displayMode: false,
-//   throwOnError: false,
-//   errorColor: '#f00',
-//   inlineStyle: defaultInlineStyle,
-//   style: defaultStyle,
-//   macros: {},
-//   colorIsTextColor: false,
-// };
