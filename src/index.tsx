@@ -95,19 +95,20 @@ html, body {
 export interface KatexProps extends ContentOptions, Omit<WebViewSharedProps & IOSWebViewProps & AndroidWebViewProps, 'source'> {}
 
 export default function Katex({
-  inlineStyle,
-  expression,
-  viewport,
-  renderMessageDelay,
-  displayMode,
+  inlineStyle = defaultInlineStyle,
+  //style = defaultStyle,
+  expression = '',
+  viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
+  renderMessageDelay = 50,
+  displayMode = false,
   output,
   leqno,
   fleqn,
-  throwOnError,
-  errorColor,
-  macros,
+  throwOnError = false,
+  errorColor = '#f00',
+  macros = {},
   minRuleThickness,
-  colorIsTextColor,
+  colorIsTextColor = false,
   maxSize,
   maxExpand,
   strict,
@@ -144,15 +145,15 @@ export default function Katex({
   );
 }
 
-Katex.defaultProps = {
-  expression: '',
-  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
-  renderMessageDelay: 50,
-  displayMode: false,
-  throwOnError: false,
-  errorColor: '#f00',
-  inlineStyle: defaultInlineStyle,
-  style: defaultStyle,
-  macros: {},
-  colorIsTextColor: false,
-};
+// Katex.defaultProps = {
+//   expression: '',
+//   viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
+//   renderMessageDelay: 50,
+//   displayMode: false,
+//   throwOnError: false,
+//   errorColor: '#f00',
+//   inlineStyle: defaultInlineStyle,
+//   style: defaultStyle,
+//   macros: {},
+//   colorIsTextColor: false,
+// };
