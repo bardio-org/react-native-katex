@@ -67,7 +67,7 @@ html, body {
   display: flex;
 }
 `;
-function Katex({ inlineStyle, expression, viewport, renderMessageDelay, displayMode, output, leqno, fleqn, throwOnError, errorColor, macros, minRuleThickness, colorIsTextColor, maxSize, maxExpand, strict, trust, globalGroup, ...webViewProps }) {
+function Katex({ inlineStyle = defaultInlineStyle, expression = '', viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0', renderMessageDelay = 50, displayMode = false, output, leqno, fleqn, throwOnError = false, errorColor = '#f00', macros = {}, minRuleThickness, colorIsTextColor = false, maxSize, maxExpand, strict, trust, globalGroup, ...webViewProps }) {
     return (react_1.default.createElement(react_native_webview_1.WebView, { ...webViewProps, source: {
             html: getContent({
                 inlineStyle,
@@ -92,16 +92,4 @@ function Katex({ inlineStyle, expression, viewport, renderMessageDelay, displayM
         } }));
 }
 exports.default = Katex;
-Katex.defaultProps = {
-    expression: '',
-    viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
-    renderMessageDelay: 50,
-    displayMode: false,
-    throwOnError: false,
-    errorColor: '#f00',
-    inlineStyle: defaultInlineStyle,
-    style: defaultStyle,
-    macros: {},
-    colorIsTextColor: false,
-};
 //# sourceMappingURL=index.js.map
