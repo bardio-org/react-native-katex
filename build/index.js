@@ -39,7 +39,7 @@ const postRenderMessage = () => {
 // So we may need to wait for a bit before sending the message after rendering is triggered)
 window.onload = () => {
     katex.render(${JSON.stringify(expression)}, targetElement(), ${JSON.stringify(options)});
-    if (!suppressRenderMessages) {
+    if (!${suppressRenderMessages}) {
       postRenderMessage();
       setTimeout(postRenderMessage, ${JSON.stringify(renderMessageDelay)});
     }
