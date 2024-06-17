@@ -34,7 +34,7 @@ export interface ContentOptions extends KatexOptions {
 
 function getContent({ inlineStyle, expression, viewport, renderMessageDelay, suppressRenderMessages, testHtml, ...options }: ContentOptions) {
 
-  if (testHtml) {
+  if (testHtml!==undefined) {
     return testHtml;
   }
 

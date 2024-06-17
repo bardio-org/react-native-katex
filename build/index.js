@@ -8,7 +8,7 @@ const react_native_webview_1 = require("react-native-webview");
 const katex_style_1 = __importDefault(require("./katex-style"));
 const katex_script_1 = __importDefault(require("./katex-script"));
 function getContent({ inlineStyle, expression, viewport, renderMessageDelay, suppressRenderMessages, testHtml, ...options }) {
-    if (testHtml) {
+    if (testHtml !== undefined) {
         return testHtml;
     }
     return `<!DOCTYPE html>
