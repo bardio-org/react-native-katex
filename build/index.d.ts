@@ -21,7 +21,9 @@ export interface ContentOptions extends KatexOptions {
     expression?: string;
     viewport?: string;
     renderMessageDelay?: number;
+    suppressRenderMessages?: boolean;
+    testHtml?: string;
 }
 export interface KatexProps extends ContentOptions, Omit<WebViewSharedProps & IOSWebViewProps & AndroidWebViewProps, 'source'> {
 }
-export default function Katex({ inlineStyle, expression, viewport, renderMessageDelay, displayMode, output, leqno, fleqn, throwOnError, errorColor, macros, minRuleThickness, colorIsTextColor, maxSize, maxExpand, strict, trust, globalGroup, ...webViewProps }: KatexProps): React.JSX.Element;
+export default function Katex({ inlineStyle, expression, viewport, renderMessageDelay, suppressRenderMessages, testHtml, displayMode, output, leqno, fleqn, throwOnError, errorColor, macros, minRuleThickness, colorIsTextColor, maxSize, maxExpand, strict, trust, globalGroup, ...webViewProps }: KatexProps): React.JSX.Element;

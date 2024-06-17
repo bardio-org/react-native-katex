@@ -7,7 +7,10 @@ const react_1 = __importDefault(require("react"));
 const react_native_webview_1 = require("react-native-webview");
 const katex_style_1 = __importDefault(require("./katex-style"));
 const katex_script_1 = __importDefault(require("./katex-script"));
-function getContent({ inlineStyle, expression, viewport, renderMessageDelay, ...options }) {
+function getContent({ inlineStyle, expression, viewport, renderMessageDelay, suppressRenderMessages, testHtml, ...options }) {
+    if (testHtml) {
+        return testHtml;
+    }
     return `<!DOCTYPE html>
 <html>
 <head>
@@ -36,8 +39,10 @@ const postRenderMessage = () => {
 // So we may need to wait for a bit before sending the message after rendering is triggered)
 window.onload = () => {
     katex.render(${JSON.stringify(expression)}, targetElement(), ${JSON.stringify(options)});
-    postRenderMessage();
-    setTimeout(postRenderMessage, ${JSON.stringify(renderMessageDelay)});
+    if (!suppressRenderMessages) {
+      postRenderMessage();
+      setTimeout(postRenderMessage, ${JSON.stringify(renderMessageDelay)});
+    }
 };
 ${katex_script_1.default}
 </script>
@@ -61,7 +66,7 @@ html, body {
   display: flex;
 }
 `;
-function Katex({ inlineStyle = defaultInlineStyle, expression = '', viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0', renderMessageDelay = 50, displayMode = false, output, leqno, fleqn, throwOnError = false, errorColor = '#f00', macros = {}, minRuleThickness, colorIsTextColor = false, maxSize, maxExpand, strict, trust, globalGroup, ...webViewProps }) {
+function Katex({ inlineStyle = defaultInlineStyle, expression = '', viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0', renderMessageDelay = 50, suppressRenderMessages = false, testHtml, displayMode = false, output, leqno, fleqn, throwOnError = false, errorColor = '#f00', macros = {}, minRuleThickness, colorIsTextColor = false, maxSize, maxExpand, strict, trust, globalGroup, ...webViewProps }) {
     return (react_1.default.createElement(react_native_webview_1.WebView, { ...webViewProps, source: {
             html: getContent({
                 inlineStyle,
