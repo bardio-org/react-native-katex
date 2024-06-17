@@ -129,6 +129,8 @@ export default function Katex({
           expression,
           viewport,
           renderMessageDelay,
+          suppressRenderMessages,
+          testHtml,
           displayMode,
           output,
           leqno,

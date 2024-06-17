@@ -73,6 +73,8 @@ function Katex({ inlineStyle = defaultInlineStyle, expression = '', viewport = '
                 expression,
                 viewport,
                 renderMessageDelay,
+                suppressRenderMessages,
+                testHtml,
                 displayMode,
                 output,
                 leqno,
