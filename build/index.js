@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = Katex;
 const react_1 = __importDefault(require("react"));
 const react_native_webview_1 = require("react-native-webview");
 const katex_style_1 = __importDefault(require("./katex-style"));
@@ -66,8 +67,14 @@ html, body {
   display: flex;
 }
 `;
-function Katex({ inlineStyle = defaultInlineStyle, expression = '', viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0', renderMessageDelay = 50, suppressRenderMessages = false, testHtml, displayMode = false, output, leqno, fleqn, throwOnError = false, errorColor = '#f00', macros = {}, minRuleThickness, colorIsTextColor = false, maxSize, maxExpand, strict, trust, globalGroup, ...webViewProps }) {
-    return (react_1.default.createElement(react_native_webview_1.WebView, { ...webViewProps, source: {
+function Katex({ inlineStyle = defaultInlineStyle, expression = '', viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0', renderMessageDelay = 50, suppressRenderMessages = false, testHtml, disableSelection = true, displayMode = false, output, leqno, fleqn, throwOnError = false, errorColor = '#f00', macros = {}, minRuleThickness, colorIsTextColor = false, maxSize, maxExpand, strict, trust, globalGroup, ...webViewProps }) {
+    const disableTextSelection = disableSelection ? `
+    document.body.style.webkitUserSelect = 'none';
+    document.body.style.mozUserSelect = 'none';
+    document.body.style.msUserSelect = 'none';
+    document.body.style.userSelect = 'none';
+  ` : '';
+    return (react_1.default.createElement(react_native_webview_1.WebView, { ...webViewProps, injectedJavaScript: disableTextSelection, source: {
             html: getContent({
                 inlineStyle,
                 expression,
@@ -92,5 +99,4 @@ function Katex({ inlineStyle = defaultInlineStyle, expression = '', viewport = '
             }),
         } }));
 }
-exports.default = Katex;
 //# sourceMappingURL=index.js.map

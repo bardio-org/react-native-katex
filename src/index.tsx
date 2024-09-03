@@ -30,11 +30,12 @@ export interface ContentOptions extends KatexOptions {
   renderMessageDelay?: number;
   suppressRenderMessages?: boolean;
   testHtml?: string;
+  disableSelection?: boolean;
 }
 
 function getContent({ inlineStyle, expression, viewport, renderMessageDelay, suppressRenderMessages, testHtml, ...options }: ContentOptions) {
 
-  if (testHtml!==undefined) {
+  if (testHtml !== undefined) {
     return testHtml;
   }
 
@@ -104,6 +105,7 @@ export default function Katex({
   renderMessageDelay = 50,
   suppressRenderMessages = false,
   testHtml,
+  disableSelection = true,
   displayMode = false,
   output,
   leqno,
@@ -120,9 +122,18 @@ export default function Katex({
   globalGroup,
   ...webViewProps
 }: KatexProps) {
+
+  const disableTextSelection = disableSelection ? `
+    document.body.style.webkitUserSelect = 'none';
+    document.body.style.mozUserSelect = 'none';
+    document.body.style.msUserSelect = 'none';
+    document.body.style.userSelect = 'none';
+  ` : '';
+
   return (
     <WebView
       {...webViewProps}
+      injectedJavaScript={disableTextSelection}
       source={{
         html: getContent({
           inlineStyle,
