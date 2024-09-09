@@ -101,7 +101,7 @@ export interface KatexProps extends ContentOptions, Omit<WebViewSharedProps & IO
 export default function Katex({
   inlineStyle = defaultInlineStyle,
   expression = '',
-  viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0',
+  viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no',
   renderMessageDelay = 50,
   suppressRenderMessages = false,
   testHtml,

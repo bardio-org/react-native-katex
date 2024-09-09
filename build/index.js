@@ -67,7 +67,7 @@ html, body {
   display: flex;
 }
 `;
-function Katex({ inlineStyle = defaultInlineStyle, expression = '', viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0', renderMessageDelay = 50, suppressRenderMessages = false, testHtml, disableSelection = true, displayMode = false, output, leqno, fleqn, throwOnError = false, errorColor = '#f00', macros = {}, minRuleThickness, colorIsTextColor = false, maxSize, maxExpand, strict, trust, globalGroup, ...webViewProps }) {
+function Katex({ inlineStyle = defaultInlineStyle, expression = '', viewport = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no', renderMessageDelay = 50, suppressRenderMessages = false, testHtml, disableSelection = true, displayMode = false, output, leqno, fleqn, throwOnError = false, errorColor = '#f00', macros = {}, minRuleThickness, colorIsTextColor = false, maxSize, maxExpand, strict, trust, globalGroup, ...webViewProps }) {
     const disableTextSelection = disableSelection ? `
     document.body.style.webkitUserSelect = 'none';
     document.body.style.mozUserSelect = 'none';
